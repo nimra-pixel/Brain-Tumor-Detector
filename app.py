@@ -3,12 +3,14 @@ import numpy as np
 import cv2
 from PIL import Image
 import tensorflow as tf
+import os
 
 st.set_page_config(page_title="Brain Tumor Classifier", page_icon="🧠", layout="centered")
 
 @st.cache_resource
 def load_model():
-    return tf.keras.models.load_model("brain_tumor_model.keras")
+    model_path = os.path.join(os.path.dirname(__file__), "brain_tumor_model.h5")
+    return tf.keras.models.load_model(model_path, compile=False)
 
 model = load_model()
 IMG_SIZE = 128
@@ -35,9 +37,9 @@ if uploaded_file:
 
     st.divider()
     if prediction > 0.5:
-        st.error(f"🔴 **Tumor Detected**")
+        st.error("🔴 **Tumor Detected**")
     else:
-        st.success(f"🟢 **No Tumor Detected**")
+        st.success("🟢 **No Tumor Detected**")
 
     st.metric("Confidence", f"{confidence * 100:.2f}%")
     st.caption("⚠️ For educational purposes only. Always consult a medical professional.")
