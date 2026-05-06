@@ -8,7 +8,7 @@ st.set_page_config(page_title="Brain Tumor Classifier", page_icon="🧠", layout
 
 @st.cache_resource
 def load_model():
-    return tf.keras.models.load_model("brain_tumor_model.h5")
+    return tf.keras.models.load_model("brain_tumor_model.keras")
 
 model = load_model()
 IMG_SIZE = 128
